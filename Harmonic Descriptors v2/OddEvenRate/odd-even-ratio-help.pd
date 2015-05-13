@@ -1,0 +1,137 @@
+#N canvas 272 138 926 416 10;
+#X obj 52 -5 bng 15 250 50 0 empty empty insert_sound 17 7 0 10 -262144
+-1 -1;
+#X floatatom -465 272 9 0 0 1 real-time - -;
+#X obj 366 209 nbx 5 14 -1e+37 1e+37 0 1 scale empty Scale(Hz) 0 -8
+0 10 -262144 -1 -1 1024 256;
+#N canvas 557 202 257 268 player 0;
+#X obj 7 162 outlet~;
+#X obj 4 126 dac~;
+#X obj 25 -38 inlet;
+#X obj 61 190 s guia;
+#X obj 60 136 count~;
+#X obj 61 165 snapshot~;
+#X msg 106 109 stop;
+#X msg 132 54 range 0 \$1;
+#X obj 140 121 bang~;
+#X obj 140 142 spigot;
+#X obj 191 121 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 127 86 1;
+#X msg 165 91 0;
+#X obj 25 -13 t b b;
+#X obj 26 67 tabplay~ sound;
+#X obj 131 30 arraysize sound;
+#X connect 2 0 13 0;
+#X connect 4 0 5 0;
+#X connect 5 0 3 0;
+#X connect 6 0 4 0;
+#X connect 7 0 3 0;
+#X connect 8 0 9 0;
+#X connect 9 0 5 0;
+#X connect 10 0 9 1;
+#X connect 11 0 10 0;
+#X connect 12 0 10 0;
+#X connect 13 0 4 0;
+#X connect 13 0 11 0;
+#X connect 13 0 14 0;
+#X connect 13 1 15 0;
+#X connect 14 0 1 0;
+#X connect 14 0 1 1;
+#X connect 14 0 0 0;
+#X connect 14 1 6 0;
+#X connect 14 1 12 0;
+#X connect 15 0 7 0;
+#X restore -465 22 pd player;
+#X obj -465 3 bng 15 250 50 0 empty empty Play 17 7 0 10 -262144 -1
+-1;
+#X obj 10 36 hsl 345 300 0 1.9927e+06 0 0 empty guia empty -2 -8 0
+10 -262144 -258113 -1 0 1;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array OE-ratio 1 float 1;
+#A 0 3.20443;
+#X coords 0 1024 1 0 350 140 1;
+#X restore 9 195 graph;
+#X floatatom 367 242 8 0 0 2 Sample - -;
+#X floatatom 367 281 8 0 0 1 Hz - -;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array sound 503808 float 2;
+#X coords 0 1 503808 -1 350 140 1;
+#X restore 9 36 graph;
+#N canvas 136 89 215 186 sample 0;
+#X obj 50 80 soundfiler;
+#X obj 50 13 inlet;
+#X obj 50 34 openpanel;
+#X msg 50 57 read -resize \$1 sound;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 0 0;
+#X restore 52 15 pd sample;
+#N canvas 519 471 645 210 values 0;
+#X obj 16 31 t b f;
+#X obj 16 90 pack f 5000;
+#X msg 16 120 bounds 0 \$2 \$1 0;
+#X obj 16 10 r scale;
+#X obj 203 36 inlet;
+#X obj 204 98 outlet;
+#X obj 338 103 s guia;
+#X obj 99 27 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 203 73 tabread OE-ratio;
+#X obj 16 61 arraysize OE-ratio;
+#X obj 15 150 s OE-ratio;
+#X connect 0 0 9 0;
+#X connect 0 1 1 1;
+#X connect 1 0 2 0;
+#X connect 2 0 10 0;
+#X connect 3 0 0 0;
+#X connect 4 0 6 0;
+#X connect 4 0 8 0;
+#X connect 7 0 9 0;
+#X connect 8 0 5 0;
+#X connect 9 0 1 0;
+#X restore 367 262 pd values;
+#X msg -343 87 off;
+#X obj -338 171 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text -388 28 -----------------------------------------------------------
+;
+#X text -389 120 -----------------------------------------------------------
+;
+#X text -317 85 turn real-time mode off;
+#X text 292 -43 monteiro.adc@gmail.com;
+#X text -383 41 REAL-TIME MODE: extract from incoming signal;
+#X text -387 134 TABLE MODE: extract directly from a table;
+#X text -275 156 parameters:;
+#X obj -338 190 arraysize sound;
+#X obj -338 214 expr int($f1/512);
+#X text 8 -42 Part of PDescriptors-v2 \, by Adriano Monteiro -;
+#X floatatom -449 235 5 0 0 0 - - -;
+#X msg -344 63 realtime;
+#X text -391 -7 Arguments:;
+#X text -328 10 2 - number of spectral peaks to find;
+#X text -204 156 source name (table) \; offset (samples) \; destination
+table \; number of analysis windows * \;;
+#X text -472 310 * total number of analysis windows =;
+#X text -245 310 number sound's samples / hop-size;
+#X text -328 -6 1 - sample-rate;
+#X text -459 325 The analysis hop-size is always half size the sample-rate.
+This is because odd-even rate uses fiddle~ to extract spectral peaks.
+;
+#X text -270 -29 PARAMETERS;
+#X obj -465 86 odd-even-ratio;
+#X msg -338 239 table sound 0 OE-ratio \$1;
+#X text -470 -48 ODD-EVEN-RATIO;
+#X connect 0 0 10 0;
+#X connect 3 0 34 0;
+#X connect 4 0 3 0;
+#X connect 7 0 11 0;
+#X connect 11 0 8 0;
+#X connect 12 0 34 1;
+#X connect 13 0 21 0;
+#X connect 21 0 22 0;
+#X connect 22 0 35 0;
+#X connect 22 0 24 0;
+#X connect 25 0 34 1;
+#X connect 34 0 1 0;
+#X connect 35 0 34 1;

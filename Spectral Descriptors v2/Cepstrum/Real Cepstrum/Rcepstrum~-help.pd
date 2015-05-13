@@ -1,0 +1,264 @@
+#N canvas 261 150 944 532 10;
+#X obj 373 -86 dsp~;
+#X floatatom 373 -64 5 0 0 1 %_CPU - -;
+#X obj 375 -38 bng 15 250 50 0 empty empty insert_sound 17 7 0 10 -262144
+-1 -1;
+#N canvas 0 22 215 121 sound1 0;
+#X obj 51 89 soundfiler;
+#X obj 51 16 inlet;
+#X msg 51 66 read -resize \$1 sound;
+#X obj 52 40 openpanel;
+#X connect 1 0 3 0;
+#X connect 2 0 0 0;
+#X connect 3 0 2 0;
+#X restore 375 -18 pd sound1;
+#X obj 370 128 nbx 5 14 -1e+37 1e+37 0 1 scale empty Scale 0 -8 0 10
+-262144 -1 -1 0.3 256;
+#X obj 20 -44 hsl 345 140 0 980606 0 0 empty guia empty -2 -8 0 10
+-262144 -258113 -1 0 1;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array RealCepstrum-rt 1024 float 1;
+#A 0 8.36777 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#A 1000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0.3 1023 -0.3 350 140 1;
+#X restore 16 115 graph;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array sound 1 float 2;
+#X coords 0 1 1 -1 350 140 1;
+#X restore 17 -44 graph;
+#N canvas 274 222 740 302 player 0;
+#X obj 52 169 outlet~;
+#X obj 49 133 dac~;
+#X obj 70 -38 inlet;
+#X obj 106 187 s guia;
+#X obj 105 133 count~;
+#X obj 106 162 snapshot~;
+#X msg 151 106 stop;
+#X msg 191 58 range 0 \$1;
+#X obj 185 118 bang~;
+#X obj 185 139 spigot;
+#X obj 221 119 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 169 80 1;
+#X msg 210 88 0;
+#X obj 71 -15 t b b;
+#X obj 272 75 r scale;
+#X obj 272 103 t b f;
+#X obj 190 24 arraysize sound;
+#X obj 70 47 tabplay~ sound;
+#X obj 422 105 t b f;
+#X obj 593 104 t b f;
+#X obj 592 127 arraysize vector;
+#X obj 592 222 s vector;
+#X obj 395 -18 r res;
+#X obj 272 126 arraysize RealCepstrum;
+#X obj 271 221 s RealCepstrum;
+#X obj 421 223 s RealCepstrum-rt;
+#X obj 421 128 arraysize RealCepstrum-rt;
+#X msg 394 14 \; RealCepstrum-rt resize \$1 \; vector resize \$1 \;
+;
+#X obj 271 166 pack f 5000 f;
+#X obj 421 169 pack f 5000 f;
+#X obj 592 167 pack f 5000 f;
+#X obj 345 146 * -1;
+#X obj 496 150 * -1;
+#X obj 666 147 * -1;
+#X msg 271 196 bounds 0 \$2 \$1 \$3;
+#X msg 421 198 bounds 0 \$2 \$1 \$3;
+#X msg 592 197 bounds 0 \$2 \$1 \$3;
+#X connect 2 0 13 0;
+#X connect 4 0 5 0;
+#X connect 5 0 3 0;
+#X connect 6 0 4 0;
+#X connect 7 0 3 0;
+#X connect 8 0 9 0;
+#X connect 9 0 5 0;
+#X connect 10 0 9 1;
+#X connect 11 0 10 0;
+#X connect 12 0 10 0;
+#X connect 13 0 4 0;
+#X connect 13 0 11 0;
+#X connect 13 0 17 0;
+#X connect 13 1 16 0;
+#X connect 14 0 15 0;
+#X connect 14 0 18 0;
+#X connect 14 0 19 0;
+#X connect 15 0 23 0;
+#X connect 15 1 28 1;
+#X connect 15 1 31 0;
+#X connect 16 0 7 0;
+#X connect 17 0 1 0;
+#X connect 17 0 1 1;
+#X connect 17 0 0 0;
+#X connect 17 1 6 0;
+#X connect 17 1 12 0;
+#X connect 18 0 26 0;
+#X connect 18 1 29 1;
+#X connect 18 1 32 0;
+#X connect 19 0 20 0;
+#X connect 19 1 30 1;
+#X connect 19 1 33 0;
+#X connect 20 0 30 0;
+#X connect 22 0 27 0;
+#X connect 23 0 28 0;
+#X connect 26 0 29 0;
+#X connect 28 0 34 0;
+#X connect 29 0 35 0;
+#X connect 30 0 36 0;
+#X connect 31 0 28 2;
+#X connect 32 0 29 2;
+#X connect 33 0 30 2;
+#X connect 34 0 24 0;
+#X connect 35 0 25 0;
+#X connect 36 0 21 0;
+#X restore 20 298 pd player;
+#X obj 20 279 bng 15 250 50 0 empty empty Play 17 7 0 10 -262144 -1
+-1;
+#X text 263 401 as in switch~ and block~ objects;
+#X text 601 420 by Adriano Monteiro - monteiro.adc@gmail.com;
+#X text 263 386 window size and overlappling \,;
+#X text 265 370 arguments and the message 'set \$1 \$2' are;
+#X obj 19 346 list prepend 0;
+#X msg 101 268 off;
+#X msg 102 294 rt 2048 2;
+#N canvas 0 22 718 300 values 0;
+#X obj 176 7 inlet;
+#X obj 442 190 outlet;
+#X obj 225 37 b;
+#X obj 223 111 s guia2;
+#X msg 223 80 range 0 \$1;
+#X obj 474 169 s guia3;
+#X obj 442 136 tabread vector;
+#X obj 442 52 f;
+#X obj 442 16 inlet;
+#X obj 176 136 pack f 1024;
+#X obj 175 80 * 1024;
+#X obj 176 194 arraycopy vector;
+#X msg 336 114 range 0 \$1;
+#X obj 336 145 s guia3;
+#X obj 176 42 max 0;
+#X obj 272 14 inlet;
+#X obj 336 89 r res;
+#X obj 442 92 min;
+#X obj 225 59 arraysize RealCepstrum;
+#X msg 176 166 copy RealCepstrum \$1 +\$2;
+#X connect 0 0 14 0;
+#X connect 2 0 7 0;
+#X connect 2 0 18 0;
+#X connect 4 0 3 0;
+#X connect 6 0 1 0;
+#X connect 7 0 17 0;
+#X connect 8 0 7 0;
+#X connect 9 0 19 0;
+#X connect 10 0 3 0;
+#X connect 10 0 9 0;
+#X connect 12 0 13 0;
+#X connect 14 0 10 0;
+#X connect 15 0 2 0;
+#X connect 15 0 10 1;
+#X connect 15 0 9 1;
+#X connect 16 0 12 0;
+#X connect 16 0 17 1;
+#X connect 17 0 5 0;
+#X connect 17 0 6 0;
+#X connect 18 0 4 0;
+#X connect 19 0 11 0;
+#X restore 626 349 pd values;
+#X floatatom 626 274 5 0 0 2 Vector - -;
+#X floatatom 677 331 5 0 0 2 Band-coef - -;
+#X floatatom 626 372 9 0 0 0 - - -;
+#X obj 500 -58 hsl 345 140 0 1.96121e+06 0 0 empty guia2 empty -2 -8
+0 10 -262144 -258113 -1 0 1;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array RealCepstrum 1 float 1;
+#A 0 8.3391;
+#X coords 0 0.3 1 -0.3 350 140 1;
+#X restore 497 -58 graph;
+#X obj 499 116 hsl 345 140 0 1024 0 0 empty guia3 empty -2 -8 0 10
+-262144 -258113 -1 0 1;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array vector 1024 float 1;
+#A 0 7.13584 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#A 1000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0.3 1023 -0.3 350 140 1;
+#X restore 496 116 graph;
+#X obj 369 178 nbx 5 14 -1e+37 1e+37 0 1 res empty plot_resolution
+0 -8 0 10 -262144 -1 -1 1024 256;
+#X msg 651 295 1024;
+#X text 682 293 window-size;
+#X text 15 -90 Real Cepstrum;
+#X text 15 -77 based on (Klapuri & Davy 2006);
+#X msg 103 316 table sound RealCepstrum 1024 512;
+#X obj 19 368 s RealCepstrum-rt;
+#X obj 19 323 Rcepstrum~;
+#X connect 0 0 1 0;
+#X connect 2 0 3 0;
+#X connect 8 0 32 0;
+#X connect 9 0 8 0;
+#X connect 14 0 31 0;
+#X connect 15 0 32 1;
+#X connect 16 0 32 1;
+#X connect 17 0 20 0;
+#X connect 18 0 17 0;
+#X connect 19 0 17 2;
+#X connect 26 0 17 1;
+#X connect 30 0 32 1;
+#X connect 32 0 14 0;
