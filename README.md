@@ -10,7 +10,7 @@ In this version, the algorithms of PDescriptors operates in two modes:
 
 Work to be done: 
 
-Import all PDescriptors patches from version 1.2 to the  model of this version and create help patches consistent with version 2 propoerties. 
+Import all features extraction algorithms from version 1.2 to this version and create help patches consistent with version 2 properties. 
 
 The patch "modelo.pd" is a template for V2 implementations. Use and modify it as necessary to adapt V1.2 algorithms to the main idea of V2 (i.e. merge rt and table modes in one algorithm). 
 
